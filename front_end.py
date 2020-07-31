@@ -5,6 +5,7 @@
 #click back
 
 import tkinter as tk
+#import read_sample
 
 LARGE_FONT= ("Verdana", 12)
 
@@ -45,41 +46,60 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.widgets=[]
-        self.page_number=1
-        self.buildPage()
+        #self.page_number=1
+        self.backend = Backend()
+        #self.screen = Screen("")
+        self.buildInitialPage()
+        #self.buildPage(self.screen)
+
+    def buildInitialPage(self):
+        #self.screen = self.screen.getInitialScreen()
+        screen = self.backend.getInitialScreen()
+        self.buildPage(screen)
 
 
-    def buildPage(self):
-        if self.page_number == 1:
+    def buildPage(self, screen):
+        """ if self.page_number == 1:
             label = tk.Label(self, text="Patent Prognosis BOT Start Page", font=LARGE_FONT)
             label.pack(pady=10, padx=10)
             self.widgets.append(label)
 
             button1 = tk.Button(self, text="Next", 
-                                command=lambda: self.nextPage())
+                                command=lambda: self.nextPage(screen))
             button1.pack()
             self.widgets.append(button1)
         else:
-            label = tk.Label(self, text="Next page", font=LARGE_FONT)
+
+            #temp1screen = self.backend.getInitialScreen()
+
+            label = tk.Label(self, text= screen.text, font=LARGE_FONT)
             label.pack(pady=10, padx=10)
             self.widgets.append(label)
 
             button1 = tk.Button(self, text="Next", 
-                                command=lambda: self.nextPage())
+                                command=lambda: self.nextPage(screen))
             button1.pack()
-            self.widgets.append(button1)
-        
+            self.widgets.append(button1) """
+        current_screen = screen
+        label = tk.Label(self, text=current_screen.text, font=LARGE_FONT)
+        label.pack(pady=10, padx=10)
+        self.widgets.append(label)
+        button1 = tk.Button(self, text="Next", 
+                                command=lambda: self.nextPage(current_screen))
+        button1.pack()
+        self.widgets.append(button1)
 
+        
     def destroyPage(self):
         for x in self.widgets:
             x.pack_forget()
         self.widgets=[]
 
-    def nextPage(self):
+    def nextPage(self, screen):
         self.destroyPage()
-        self.page_number=self.page_number+1
-        self.buildPage()
-        
+        #self.page_number=self.page_number+1
+        self.buildPage(self.backend.getNextScreen(screen))
+
 
 class PageOne(tk.Frame):
 
@@ -92,6 +112,27 @@ class PageOne(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
          button1.pack()
 
+class Screen:
+    #class variables
+    #title, condition{}, questions[]
+    def __init__(self, text):
+        self.text = text
+
+
+class Backend:
+    def getInitialScreen(self):
+        #returns Screen object
+        tempscreen = Screen("monkey")
+        return tempscreen
+
+    def getNextScreen(self, screen):
+        #returns Screen object
+        #returns null if there are no more screens
+        tempscreen = Screen("donkey")
+        return tempscreen
+
+    #def getPrevScreen(self, screen):
+        #returns Screen object 
 
 app = PatientPrognosisBot()
 app.mainloop()
