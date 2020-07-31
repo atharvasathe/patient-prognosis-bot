@@ -1,70 +1,67 @@
 {
-  "Hello, this is the Care IO Patient Prognosis Bot. Please answer the following questions honestly to get the best feedback.": [],
-  "If this is an emergency please call 911 right away!": [
-    "y/n"
-  ],
-  "Basic Information": [
-    "string",
-    "What is your name?",
-    "What is your gender?",
-    "What is your age?",
-    "What is your location?"
-  ],
-  "Have you taken a COVID-19 test?": [
-    "y/n"
-  ],
-  "Was the result of the test positive?": [
-    "y/n"
-  ],
-  "General Assessment": [
-    "y/n",
-    "Are you a healthcare worker?",
-    "Have you been practicing social distancing?",
-    "Have you been wearing a mask?",
-    "Have you traveled to another country in the last 14 days?",
-    "Have you been in contact with an individual who you suspect has COVID-19?",
-    "Have you been in contact with an individual who you know has COVID-19?",
-    "Have you been in a large gathering of people in the last 14 days?"
-  ],
-  "What country did you travel to in the last 14 days?": [
-    "string"
-  ],
-  "What symptoms have you been experiencing?": [
-    "y/n",
-    "Persistent pain or pressure in the chest",
-    "New confusion",
-    "Inability to wake up or stay awake",
-    "Bluish lips or face",
-    "Fever (>38°C)",
-    "Chills",
-    "Cough",
-    "Shortness of breath or difficulty breathing",
-    "Fatigue",
-    "Muscle or body aches",
-    "Headache",
-    "New loss of taste or smell",
-    "Sore Throat",
-    "Congestion or runny nose",
-    "Nausea or vomitting",
-    "Diarrhea"
-  ],
-  "How long have you been experiencing these symptoms?": [
-    "y/n",
-    "Persistent pain or pressure in the chest",
-    "New confusion",
-    "Inability to wake up or stay awake",
-    "Bluish lips or face",
-    "Fever (>38°C)",
-    "Chills",
-    "Cough",
-    "Shortness of breath or difficulty breathing",
-    "Fatigue",
-    "Muscle or body aches",
-    "Headache",
-    "New loss of taste or smell",
-    "Sore Throat",
-    "Congestion or runny nose",
-    "Nausea or vomitting",
-    "Diarrhea"
-  ]
+    "screens": [
+        {
+            "title": "Basic Information",
+            "questions": [
+                {
+                    "prompt": "What is your name?",
+                    "type": "string",
+                    "answer": ""
+                },
+                {
+                    "prompt": "What is your gender?",
+                    "type": "string",
+                    "answer": ""
+                },
+                {
+                    "prompt": "What is your age?",
+                    "type": "string",
+                    "answer": ""
+                }
+            ]
+        },
+        {
+            "title": "Covid Test",
+            "questions": [
+                {
+                    "prompt": "Have you taken a COVID-19 test?",
+                    "type": "y/n",
+                    "answer": ""
+                }
+            ]
+        },
+        {
+            "title": "Covid Test result",
+            "condition": {
+                "question": "Have you taken a COVID-19 test?",
+                "answer": "yes"
+            },
+            "questions": [
+                {
+                    "prompt": "Was the test result positive?",
+                    "type": "y/n",
+                    "answer": ""
+                }
+            ]
+        },
+        {
+            "title": "Please go to the hospital",
+            "condition":{
+                "question": "Was the test result positive?",
+                "answer": "yes"
+            },
+            "questions": []
+
+        },
+        {
+            "title": "General Assessment",
+            "questions": [
+                {
+                    "prompt": "Are you a healthcare worker?",
+                    "type": "y/n",
+                    "answer": ""
+                }
+            ]
+        }
+    ]
 }
