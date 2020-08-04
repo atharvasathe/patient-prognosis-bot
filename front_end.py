@@ -1,13 +1,8 @@
-#get greeting
-
-#click next
-
-#click back
-
 import tkinter as tk
-#import read_sample
+from back_end import Question, Condition, Screen
 
-LARGE_FONT= ("Verdana", 12)
+TITLE_FONT= ("Verdana", 12)
+QUESTION_FONT= ("verdana", 10)
 
 class PatientPrognosisBot(tk.Tk):
 
@@ -60,7 +55,7 @@ class StartPage(tk.Frame):
 
     def buildPage(self, screen):
         """ if self.page_number == 1:
-            label = tk.Label(self, text="Patent Prognosis BOT Start Page", font=LARGE_FONT)
+            label = tk.Label(self, text="Patent Prognosis BOT Start Page", font=TITLE_FONT)
             label.pack(pady=10, padx=10)
             self.widgets.append(label)
 
@@ -72,7 +67,7 @@ class StartPage(tk.Frame):
 
             #temp1screen = self.backend.getInitialScreen()
 
-            label = tk.Label(self, text= screen.text, font=LARGE_FONT)
+            label = tk.Label(self, text= screen.text, font=TITLE_FONT)
             label.pack(pady=10, padx=10)
             self.widgets.append(label)
 
@@ -81,13 +76,22 @@ class StartPage(tk.Frame):
             button1.pack()
             self.widgets.append(button1) """
         current_screen = screen
-        label = tk.Label(self, text=current_screen.text, font=LARGE_FONT)
+        label = tk.Label(self, text=current_screen.title, font=TITLE_FONT)
         label.pack(pady=10, padx=10)
         self.widgets.append(label)
-        button1 = tk.Button(self, text="Next", 
-                                command=lambda: self.nextPage(current_screen))
-        button1.pack()
-        self.widgets.append(button1)
+
+        for question in screen.questions:
+            self.displayQuestion(question)
+
+        button_next = tk.Button(self, text="Next", 
+                                command=lambda: self.nextPage(current_screen, 1))
+        button_next.pack()
+        self.widgets.append(button_next)
+
+        button_prev = tk.Button(self, text="Back", 
+                                command=lambda: self.nextPage(current_screen, 0))
+        button_prev.pack()
+        self.widgets.append(button_prev)
 
         
     def destroyPage(self):
@@ -95,44 +99,74 @@ class StartPage(tk.Frame):
             x.pack_forget()
         self.widgets=[]
 
-    def nextPage(self, screen):
+    def nextPage(self, screen, direction):
         self.destroyPage()
         #self.page_number=self.page_number+1
-        self.buildPage(self.backend.getNextScreen(screen))
+        if direction == 1:
+            self.buildPage(self.backend.getNextScreen(screen))
+        else:
+            self.buildPage(self.backend.getPrevScreen(screen))
+
+    def displayQuestion(self, question):
+        question_prompt = tk.Label(self, text=question.prompt, font= QUESTION_FONT)
+        question_prompt.pack()#side = LEFT)
+        self.widgets.append(question_prompt)
+
+        if question.type == "string":
+            string_entry = tk.Entry(self, bd=2)
+            string_entry.pack()#side = RIGHT)
+            self.widgets.append(string_entry)
+        elif question.type == "yn":
+            var = tk.IntVar()
+            radio_entry_yes = tk.Radiobutton(self, text="Yes", variable=var, value=1)
+            radio_entry_yes.pack()#side=RIGHT)
+            self.widgets.append(radio_entry_yes)
+
+            radio_entry_no = tk.Radiobutton(self, text="No", variable=var, value=2)
+            radio_entry_no.pack()#side=RIGHT)
+            self.widgets.append(radio_entry_no)
+            
+
 
 
 class PageOne(tk.Frame):
 
      def __init__(self, parent, controller):
          tk.Frame.__init__(self, parent)
-         label = tk.Label(self, text="Page One", font=LARGE_FONT)
+         label = tk.Label(self, text="Page One", font=TITLE_FONT)
          label.pack(pady=10, padx=10)
 
          button1 = tk.Button(self, text="back", 
                             command=lambda: controller.show_frame(StartPage))
          button1.pack()
 
-class Screen:
+""" class Screen:
     #class variables
     #title, condition{}, questions[]
     def __init__(self, text):
-        self.text = text
+        self.text = text """
 
 
 class Backend:
     def getInitialScreen(self):
         #returns Screen object
-        tempscreen = Screen("monkey")
+        q1 = Question("What is your name", "string", "")
+        q2 = Question("Are you old?", "yn", "")
+        qarray = [q1, q2]
+        tempscreen = Screen("First Screen", "none", qarray)
         return tempscreen
 
     def getNextScreen(self, screen):
         #returns Screen object
         #returns null if there are no more screens
-        tempscreen = Screen("donkey")
+        q1 = Question("What is your age", "string", "")
+        q2 = Question("Are you young?", "yn", "")
+        qarray = [q1, q2]
+        tempscreen = Screen("Second Screen", "none", qarray)
         return tempscreen
 
-    #def getPrevScreen(self, screen):
-        #returns Screen object 
+    def getPrevScreen(self, screen):
+        return self.getInitialScreen()
 
 app = PatientPrognosisBot()
 app.mainloop()

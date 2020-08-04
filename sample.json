@@ -1,0 +1,54 @@
+[
+    "screen": {
+       "show_to_user": true
+       "title": "Basic Information"
+       "questions": [
+          {
+              "prompt" : "What is your name?",
+              "type": "string",
+              "value": ""
+          },
+          {
+              "prompt" : "What is your gender?",
+              "type": "string",
+              "value": "",
+          },
+          {
+              "prompt" : "What is your age?"
+              "type": "string"
+              "value": ""
+          },
+          {
+              "prompt" : "What is your location?"
+              "type": "string"
+              "value": ""
+          },
+       ],
+    },
+    "screen": {
+       "title": "Basic Information"
+       "questions": [
+          {
+              "prompt" : "What is your name?"
+              "type": "string"
+              "value": ""
+          },
+          {
+              "prompt" : "What is your gender?"
+              "type": "string"
+              "value": ""
+          },
+          {
+              "prompt" : "What is your age?"
+              "type": "string"
+              "value": ""
+          },
+          {
+              "prompt" : "What is your location?"
+              "type": "string"
+              "value": ""
+          },
+       ],
+    },
+
+]

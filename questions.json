@@ -25,7 +25,7 @@
             "questions": [
                 {
                     "prompt": "Have you taken a COVID-19 test?",
-                    "type": "y/n",
+                    "type": "yn",
                     "answer": ""
                 }
             ]
@@ -39,7 +39,7 @@
             "questions": [
                 {
                     "prompt": "Was the test result positive?",
-                    "type": "y/n",
+                    "type": "yn",
                     "answer": ""
                 }
             ]
@@ -58,7 +58,7 @@
             "questions": [
                 {
                     "prompt": "Are you a healthcare worker?",
-                    "type": "y/n",
+                    "type": "yn",
                     "answer": ""
                 }
             ]
