@@ -2,10 +2,12 @@
   "screens": [
     {
       "title": "Hello, this is the Care IO Patient Prognosis Bot. Please answer the following questions honestly to get the best feedback.",
+      "conditions": [],
       "questions": []
     },
     {
       "title": "Emergency",
+      "conditions": [],
       "questions": [
         {
           "prompt": "Is this an emergency? If so call 911 right away!",
@@ -16,6 +18,7 @@
     },
     {
       "title": "Basic Information",
+      "conditions": [],
       "questions": [
         {
           "prompt": "What is your name?",
@@ -40,7 +43,8 @@
       ]
     },
     {
-      "title": "Covid Test",
+      "title": "COVID-19 Test",
+      "conditions": [],
       "questions": [
         {
           "prompt": "Have you taken a COVID-19 test?",
@@ -50,11 +54,13 @@
       ]
     },
     {
-      "title": "Covid Test result",
-      "condition": {
-        "question": "Have you taken a COVID-19 test?",
-        "answer": "yes"
-      },
+      "title": "COVID-19 Test result",
+      "conditions": [
+        {
+          "question": "Have you taken a COVID-19 test?",
+          "answer": "yes"
+        }
+      ],
       "questions": [
         {
           "prompt": "Was the test result positive?",
@@ -64,16 +70,19 @@
       ]
     },
     {
-      "title": "Please go to the hospital",
-      "condition": {
-        "question": "Was the test result positive?",
-        "answer": "yes"
-      },
+      "title": "Please go to the hospital!",
+      "conditions": [
+        {
+          "question": "Was the test result positive?",
+          "answer": "yes"
+        }
+      ],
       "questions": []
 
     },
     {
       "title": "General Assessment",
+      "conditions": [],
       "questions": [
         {
           "prompt": "Are you a healthcare worker?",
@@ -114,13 +123,276 @@
     },
     {
       "title": "Travel",
-      "condition": {
-        "question": "Have you traveled to another country in the last 14 days?",
-        "answer": "yes"
-      },
+      "conditions": [
+        {
+          "question": "Are you a healthcare worker?",
+          "answer": ""
+        },
+        {
+          "question": "Have you been practicing social distancing?",
+          "answer": ""
+        },
+        {
+          "question": "Have you been wearing a mask?",
+          "answer": ""
+        },
+        {
+          "question": "Have you traveled to another country in the last 14 days?",
+          "answer": "yes"
+        },
+        {
+          "question": "Have you been in contact with an individual who you suspect has COVID-19?",
+          "answer": ""
+        },
+        {
+          "question": "Have you been in contact with an individual who you know has COVID-19?",
+          "answer": ""
+        },
+        {
+          "question": "Have you been in a large gathering of people in the last 14 days?",
+          "answer": ""
+        }
+      ],
       "questions": [
         {
           "prompt": "What country did you travel to in the last 14 days?",
+          "type": "string",
+          "answer": ""
+        }
+      ]
+    },
+    {
+      "title": "Symptoms Present",
+      "conditions": [],
+      "questions": [
+        {
+          "prompt": "Persistent pain or pressure in the chest",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "New confusion",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Inability to wake up or stay awake",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Bluish lips or face",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Fever (>38°C)",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Chills",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Cough",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Shortness of breath or difficulty breathing",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Fatigue",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Muscle or body aches",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Headache",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "New loss of taste or smell",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Sore Throat",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Congestion or runny nose",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Nausea or vomitting",
+          "type": "check",
+          "answer": "no"
+        },
+        {
+          "prompt": "Diarrhea",
+          "type": "check",
+          "answer": "no"
+        }
+      ]
+    },
+    {
+      "title": "Duration of Symptoms Present",
+      "conditions": [
+        {
+          "question": "Persistent pain or pressure in the chest",
+          "answer": "yes"
+        },
+        {
+          "question": "New confusion",
+          "answer": "yes"
+        },
+        {
+          "question": "Inability to wake up or stay awake",
+          "answer": "yes"
+        },
+        {
+          "question": "Bluish lips or face",
+          "answer": "yes"
+        },
+        {
+          "question": "Fever (>38°C)",
+          "answer": "yes"
+        },
+        {
+          "question": "Chills",
+          "answer": "yes"
+        },
+        {
+          "question": "Cough",
+          "answer": "yes"
+        },
+        {
+          "question": "Shortness of breath or difficulty breathing",
+          "answer": "yes"
+        },
+        {
+          "question": "Fatigue",
+          "answer": "yes"
+        },
+        {
+          "question": "Muscle or body aches",
+          "answer": "yes"
+        },
+        {
+          "question": "Headache",
+          "answer": "yes"
+        },
+        {
+          "question": "New loss of taste or smell",
+          "answer": "yes"
+        },
+        {
+          "question": "Sore Throat",
+          "answer": "yes"
+        },
+        {
+          "question": "Congestion or runny nose",
+          "answer": "yes"
+        },
+        {
+          "question": "Nausea or vomitting",
+          "answer": "yes"
+        },
+        {
+          "question": "Diarrhea",
+          "answer": "yes"
+        }
+      ],
+      "questions": [
+        {
+          "prompt": "Persistent pain or pressure in the chest",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "New confusion",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Inability to wake up or stay awake",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Bluish lips or face",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Fever (>38°C)",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Chills",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Cough",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Shortness of breath or difficulty breathing",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Fatigue",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Muscle or body aches",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Headache",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "New loss of taste or smell",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Sore Throat",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Congestion or runny nose",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Nausea or vomitting",
+          "type": "string",
+          "answer": ""
+        },
+        {
+          "prompt": "Diarrhea",
           "type": "string",
           "answer": ""
         }
