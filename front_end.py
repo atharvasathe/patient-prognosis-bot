@@ -1,5 +1,5 @@
 import tkinter as tk
-from back_end import Question, Condition, Screen
+from back_end import Question, Condition, Screen, Backend
 
 TITLE_FONT= ("Verdana", 12)
 QUESTION_FONT= ("verdana", 10)
@@ -103,9 +103,10 @@ class StartPage(tk.Frame):
         self.destroyPage()
         #self.page_number=self.page_number+1
         if direction == 1:
-            self.buildPage(self.backend.getNextScreen(screen))
+            self.buildPage(self.backend.getNextScreen())
         else:
-            self.buildPage(self.backend.getPrevScreen(screen))
+            self.buildPage(self.backend.getPrevScreen())
+       
 
     def displayQuestion(self, question):
         question_prompt = tk.Label(self, text=question.prompt, font= QUESTION_FONT)
@@ -147,7 +148,7 @@ class PageOne(tk.Frame):
         self.text = text """
 
 
-class Backend:
+""" class Backend:
     def getInitialScreen(self):
         #returns Screen object
         q1 = Question("What is your name", "string", "")
@@ -167,6 +168,6 @@ class Backend:
 
     def getPrevScreen(self, screen):
         return self.getInitialScreen()
-
+ """
 app = PatientPrognosisBot()
 app.mainloop()
