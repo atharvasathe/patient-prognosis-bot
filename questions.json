@@ -248,7 +248,7 @@
       ]
     },
     {
-      "title": "Duration of Symptoms Present",
+      "title": "Were the symptoms present severe?",
       "conditions": [
         {
           "question": "Persistent pain or pressure in the chest",
@@ -318,82 +318,82 @@
       "questions": [
         {
           "prompt": "Persistent pain or pressure in the chest",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "New confusion",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Inability to wake up or stay awake",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Bluish lips or face",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Fever (>38°C)",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Chills",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Cough",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Shortness of breath or difficulty breathing",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Fatigue",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Muscle or body aches",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Headache",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "New loss of taste or smell",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Sore Throat",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Congestion or runny nose",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Nausea or vomitting",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         },
         {
           "prompt": "Diarrhea",
-          "type": "string",
+          "type": "yn",
           "answer": ""
         }
       ]
