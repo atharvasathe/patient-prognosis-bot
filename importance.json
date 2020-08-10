@@ -1,0 +1,58 @@
+{
+  "screens": [
+    {
+      "triggers": [],
+      "ratings": []
+    },
+    {
+      "triggers": [ "" ],
+      "ratings": [ 0 ]
+    },
+    {
+      "triggers": [ "", "male", ">50", "" ],
+      "ratings": [ 0, 7, 9, 0 ]
+    },
+    {
+      "triggers": [ "" ],
+      "ratings": [ 0 ]
+    },
+    {
+      "triggers": [ "yes" ],
+      "ratings": [ 150 ]
+    },
+    {
+      "triggers": [],
+      "ratings": []
+    },
+    {
+      "triggers": [ "yes", "no", "no", "yes", "yes", "yes", "yes" ],
+      "ratings": [ 9, 3, 3, 3, 5, 10, 5]
+    },
+    {
+      "triggers": [ "" ],
+      "ratings": [ 0 ]
+    },
+    {
+      "triggers": [ "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes" ],
+      "ratings": [ 5, 5, 5, 5, 5, 5, 5, 5, 3, 3, 3, 10, 3, 3, 5, 5 ]
+    },
+    {
+      "triggers": [ "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes" ],
+      "ratings": [ 10, 10, 10, 10, 10, 10, 10, 10, 8, 8, 8, 10, 8, 8, 10, 10 ]
+    }
+  ],
+  "messages": [
+    {
+      "text": "Emergency",
+      "threshold": 300
+    },
+    {
+      "text": "Non-Emergency",
+      "threshold": 150
+    },
+    {
+      "text": "Low Risk",
+      "threshold": 0
+    }
+  ]
+}
