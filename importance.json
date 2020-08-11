@@ -43,16 +43,24 @@
   ],
   "messages": [
     {
-      "text": "Emergency",
+      "title": "Emergency",
+      "text": "Based on the information we could gather, we determined that you are at a high risk of having COVID-19. It is vital that you contact a doctor right away! Do so by phone or internet if possible. Please wear a mask when coming into contact with other individuals. Doctors will give you further guidance. It is important to stay strong and confident. Protect yourself and ask for help whenever needed. You will get through this!",
       "threshold": 300
     },
     {
-      "text": "Non-Emergency",
+      "title": "Non-Emergency",
+      "text": "Based on the information we could gather, we determined that you have displayed some symptoms of COVID-19. Though you are not in present danger, it is possible that you may develop more symptoms. We advise you to contact a doctor preferably through the phone or the internet. Try to quarantine yourself for at least 14 days and keep track of symptoms you may experience. If your symptoms worsen or you experience more symptoms, please contact a doctor right away! If you seem to feel better with less symptoms, proceed with caution but you may not have to quarantine anymore. Please practice social distancing proocols and wear a mask.",
       "threshold": 150
     },
     {
-      "text": "Low Risk",
+      "title": "Low Risk",
+      "text": "Based on the information we could gather, we determined that you have a low risk of COVID-19. Still, we encourage you to to err on the side of caution. We strongly ecourage practicing social distancing measures and wearing a mask. If you feel you are experiencing more symptoms and suspect you may have COVID-19, please call a doctor right away!",
       "threshold": 0
+    },
+    {
+      "title": "Inconclusive",
+      "text": "We could not draw a conclusion based on the data we received. Because of the uncertainty, please err to the side of caution. Contact a doctor preferably through the phone or internet. Please follow social distancing protocols and wear a mask.",
+      "threshold": -1
     }
   ]
 }
