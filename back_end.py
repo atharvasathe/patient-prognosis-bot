@@ -167,14 +167,19 @@ class Backend:
         #use total to determine a final message
         #use thresholds in messages list to determine which message to return
         fmessage = ""
+        backupMessage = ""
         for m in messages:
             txt = m["text"]
             thresh = m["threshold"]
-            if (total >= thresh):
-                fmessage = txt
-                break
+            #The backup message should always be available in case none of the thresholds are passed
+            if (thresh == -1):
+                backupMessage = txt
+            else:
+                if (total >= thresh):
+                    fmessage = txt
+                    break
         if (fmessage == ""):
-            fmessage = "No conclusion has been made. Maybe there were fields that were not filled in."
+            fmessage = backupMessage
         return fmessage
             
 
