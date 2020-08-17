@@ -61,28 +61,10 @@ class StartPage(tk.Frame):
 
 
     def buildPage(self, screen):
-        """ if self.page_number == 1:
-            label = tk.Label(self, text="Patent Prognosis BOT Start Page", font=TITLE_FONT)
-            label.pack(pady=10, padx=10)
-            self.widgets.append(label)
-
-            button1 = tk.Button(self, text="Next", 
-                                command=lambda: self.nextPage(screen))
-            button1.pack()
-            self.widgets.append(button1)
-        else:
-
-            #temp1screen = self.backend.getInitialScreen()
-
-            label = tk.Label(self, text= screen.text, font=TITLE_FONT)
-            label.pack(pady=10, padx=10)
-            self.widgets.append(label)
-
-            button1 = tk.Button(self, text="Next", 
-                                command=lambda: self.nextPage(screen))
-            button1.pack()
-            self.widgets.append(button1) """
         current_screen = screen
+
+        if screen is None:
+            return
 
         #packs the screen title in larger font
         label = tk.Label(self, text=current_screen.title, font=TITLE_FONT)
@@ -117,6 +99,7 @@ class StartPage(tk.Frame):
 
     def nextPage(self, screen, direction):
         self.saveAnswers(screen)
+        #self.printScreen(screen)
         self.destroyPage()
 
         #calls next or prev depending on the direction parameter
@@ -150,9 +133,9 @@ class StartPage(tk.Frame):
             radio_entry_no.pack()#side=RIGHT)
             self.widgets.append(radio_entry_no)
         elif question.type == "check":
-            var = tk.IntVar()
+            var = tk.StringVar()
             self.answers_dictionary[question.prompt] = var
-            check_button = tk.Checkbutton(self, variable = var, onvalue = 1, offvalue = 0)
+            check_button = tk.Checkbutton(self, variable = var, onvalue = "yes", offvalue = "no")
             check_button.pack()
             self.widgets.append(check_button)
             
@@ -160,13 +143,15 @@ class StartPage(tk.Frame):
     def saveAnswers(self, screen):
         #loops through Questions and saves the answers depending on dictionary answers
         for question in screen.questions:
-            if question.type == "yn":
-                if self.answers_dictionary[question.prompt] == "yes":
-                    question.ans = "yes"
-                else: 
-                    question.ans = "no"
-            else:
-                question.ans = self.answers_dictionary[question.prompt].get()                    
+            question.ans = self.answers_dictionary[question.prompt].get()       
+
+    def printScreen(self, screen):
+        print(screen.title)
+        for question in screen.questions:
+            print("Question Prompt:", question.prompt)
+            print("Answer Type:", question.type)
+            print("Answer:", question.ans)
+            print("Display:", question.display)
 
 
 
@@ -181,33 +166,5 @@ class PageOne(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
          button1.pack()
 
-""" class Screen:
-    #class variables
-    #title, condition{}, questions[]
-    def __init__(self, text):
-        self.text = text """
-
-
-""" class Backend:
-    def getInitialScreen(self):
-        #returns Screen object
-        q1 = Question("What is your name", "string", "")
-        q2 = Question("Are you old?", "yn", "")
-        qarray = [q1, q2]
-        tempscreen = Screen("First Screen", "none", qarray)
-        return tempscreen
-
-    def getNextScreen(self, screen):
-        #returns Screen object
-        #returns null if there are no more screens
-        q1 = Question("What is your age", "string", "")
-        q2 = Question("Are you young?", "yn", "")
-        qarray = [q1, q2]
-        tempscreen = Screen("Second Screen", "none", qarray)
-        return tempscreen
-
-    def getPrevScreen(self, screen):
-        return self.getInitialScreen()
- """
 app = PatientPrognosisBot()
 app.mainloop()
