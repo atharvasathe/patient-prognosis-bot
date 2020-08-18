@@ -23,6 +23,21 @@ class Screen:
         self.title = title
         self.conditions = conditions
         self.questions = questions
+    #bool complex
+    #determines whether condtions, answer type, and display are printed or not
+    def print(self, complex):
+        print("Screen Title:", self.title)
+        if (complex):
+            for condition in self.conditions:
+                print("Condition Question:", condition.question)
+                print("Condition Answer:", condition.ans)
+        for question in self.questions:
+            print("Question:", question.prompt)
+            if (complex):
+                print("Answer Type:", question.type)
+            print("Answer:", question.ans)
+            if (complex):
+                print("Display:", question.display)
 
 class Backend:
     def __init__(self):
@@ -158,11 +173,6 @@ class Backend:
                             if (trigger == ans):
                                 #Add to Total
                                 total+=rat
-            #print(i)
-            #print(trigList)
-            #print(ratingList)
-            #print(total)
-            #print()
             i+=1
         #use total to determine a final message
         #use thresholds in messages list to determine which message to return
@@ -180,65 +190,27 @@ class Backend:
                     break
         if (fmessage == ""):
             fmessage = backupMessage
-        return fmessage
-            
-
-#Testing Output
-#Can delete later, just to show how to access values
+        conds = []
+        questions = []
+        lastScreen = Screen(fmessage, conds, questions)
+        return lastScreen
+    #bool complex
+    #determines whether condtions, answer type, and display are printed or not
+    def print(self, complex):
+        print("User Answers:")
+        i = 0
+        for scr in self.screens:
+            print("Screen", i, ":")
+            scr.print(complex)
+            print()
+            i+=1
 
 #Dummy Front End
 be = Backend()
 
-#Forward Loop WITHOUT Conditions
-print("FORWARD WITHOUT CONDITIONS")
-for scr in be.screens:
-    print("Screen Title:", scr.title)
-    for condition in scr.conditions:
-        print("Condition Question:", condition.question)
-        print("Condition Answer:", condition.ans)
-    for question in scr.questions:
-        print("Question Prompt:", question.prompt)
-        print("Answer Type:", question.type)
-        print("Answer:", question.ans)
-        print("Display:", question.display)
-    print()
-
-#Forward Loop WITH Conditions
-print("FORWARD WITH CONDITIONS")
-scr = be.getInitialScreen()
-numScreens = len(be.screens)
-while(be.index < numScreens) :
-    print("Screen", be.index, ":")
-    print("Screen Title:", scr.title)
-    for condition in scr.conditions:
-        print("Condition Question:", condition.question)
-        print("Condition Answer:", condition.ans)
-    for question in scr.questions:
-        print("Question Prompt:", question.prompt)
-        print("Answer Type:", question.type)
-        print("Answer:", question.ans)
-        print("Display:", question.display)
-    print()
-    scr = be.getNextScreen()
-
-#Backwards Loop
-print("BACKWARDS")
-scr = be.getPrevScreen()
-while(be.index >= 0):
-    print("Screen", be.index, ":")
-    print("Screen Title:", scr.title)
-    for condition in scr.conditions:
-        print("Condition Question:", condition.question)
-        print("Condition Answer:", condition.ans)
-    for question in scr.questions:
-        print("Question Prompt:", question.prompt)
-        print("Answer Type:", question.type)
-        print("Answer:", question.ans)
-        print("Display:", question.display)
-    print()
-    scr = be.getPrevScreen()
-
-#Evaluation
-print("Evaluation:", be.evaluate())
-
-print("finished")
+#Evaluation and Output
+#example of what happens after the last screen in the frontend
+scr = be.evaluate()
+scr.print(False)
+print()
+be.print(False)
