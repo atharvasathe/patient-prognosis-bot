@@ -11,33 +11,29 @@ ANSWER_PAD_Y= 5
 class PatientPrognosisBot(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-    
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
 
         self.geometry("1280x720")
 
-        container.pack(side="top", fill="both", expand = True)
+        #container.pack(side="top", fill="both", expand = True)
+        container.pack()
 
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        #container.grid_rowconfigure(0, weight=1)
+        #container.grid_columnconfigure(0, weight=1)
 
-        self.frames = {}
+        # self.frames = {}
+        # for F in (StartPage, PageOne):
+        #     frame = F(container, self)
+        #     self.frames[F] = frame
+        #     frame.grid(row=0, column=0, sticky="nsew")
 
-        for F in (StartPage, PageOne):
+        StartPage(container, self)
+        # self.show_frame(frame)
 
-            frame = F(container, self)
-
-            self.frames[F] = frame
-
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.show_frame(StartPage)
-
-    def show_frame(self, cont):
-
-        frame = self.frames[cont]
-        frame.tkraise()
+    # def show_frame(self, cont):
+        # frame = self.frames[cont]
+        # frame.tkraise()
 
 def qf(stringtoprint):
     print(stringtoprint)
@@ -45,7 +41,11 @@ def qf(stringtoprint):
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent, parent)
+
+        self.grid_columnconfigure(0, minsize=360)
+        self.grid_columnconfigure(1, minsize=360)
+
         #Array Widgets holds all of the tkinter Labels and Entry box widgets 
         self.widgets=[]
 
@@ -59,13 +59,13 @@ class StartPage(tk.Frame):
         self.answers_dictionary={}
 
         #Question tkinter Frame
-        self.question_frame = tk.Frame(self)
+        #self.question_frame = tk.Frame(self)
         #self.question_frame.geometry("640x720")
-        self.question_frame.pack(side="left")
+        #self.question_frame.pack(side="left")
 
         #Answer tkinter Frame
-        self.answer_frame = tk.Frame(self)
-        self.answer_frame.pack(side="right")
+        #self.answer_frame = tk.Frame(self)
+        #self.answer_frame.pack(side="right")
 
 
     #builds initial screen
@@ -79,36 +79,47 @@ class StartPage(tk.Frame):
         current_screen = screen
 
         if screen is None:
+            evaluation = tk.Label(self, text=self.backend.evaluate().title, wraplength=1200, font=TITLE_FONT)
+            evaluation.grid(row=1)
             return
 
+        title_frame = tk.Frame(self)
+        title_frame.grid(row=0, columnspan=2)
+        title_frame.columnconfigure(0, minsize=1200)
+
         #packs the screen title in larger font
-        label = tk.Label(self, text=current_screen.title, font=TITLE_FONT)
-        label.pack(pady=10, padx=10)
+        grid_row = 0
+        label = tk.Label(title_frame, text=current_screen.title, font=TITLE_FONT)
+        label.grid(row=0, column=0)
         #adds the screen title to array widgets
         self.widgets.append(label)
 
         #loops through all Questions in Screen and displays them 
         for question in screen.questions:
-            self.displayQuestion(question)
+            grid_row = grid_row + 1
+            self.displayQuestion(question, grid_row)
 
+        grid_row = grid_row + 1
         #next button calls for the next screen
-        button_next = tk.Button(self, text="Next", 
+        button_next = tk.Button(title_frame, text="Next", 
                                 command=lambda: self.nextPage(current_screen, 1))
-        button_next.pack(side="bottom")
+        button_next.grid(row=0, column=1, sticky="E")
         #adds next button to array widgets
         self.widgets.append(button_next)
         #prev button calls for the prev screen
-        button_prev = tk.Button(self, text="Back", 
+        button_prev = tk.Button(title_frame, text="Back", 
                                 command=lambda: self.nextPage(current_screen, 0))
-        button_prev.pack(side="bottom")
+        button_prev.grid(row=0, column=2, sticky="E")
         #adds prev button to array widgets
         self.widgets.append(button_prev)
+
+        self.pack()
 
        
     def destroyPage(self):
         #loops through array widgets and deletes them
         for x in self.widgets:
-            x.pack_forget()
+            x.grid_forget()
         #clears array widgets
         self.widgets=[]
 
@@ -124,47 +135,50 @@ class StartPage(tk.Frame):
             self.buildPage(self.backend.getPrevScreen())
        
 
-    def displayQuestion(self, question):
+    def displayQuestion(self, question, grid_row):
         #displays question prompt
-        question_prompt = tk.Label(self.question_frame, text=question.prompt, font= QUESTION_FONT)
-        question_prompt.pack(padx=QUESTION_PAD_X, pady=QUESTION_PAD_Y)#side = "left")
+        question_prompt = tk.Label(self, text=question.prompt, font= QUESTION_FONT)
+        question_prompt.grid(row=grid_row, column=0) # grid_row, 0
         #adds question prompt to array widgets
         self.widgets.append(question_prompt)
 
         #creates the proper entry widget depending on the answer type
         if question.type == "string":
-            string_entry = tk.Entry(self.answer_frame, bd=2)
+            string_entry = tk.Entry(self, bd=2)
             string_entry.insert(0, question.ans)
-            string_entry.pack(padx=ANSWER_PAD_X, pady=ANSWER_PAD_Y)#side = "right")
+            string_entry.grid(row=grid_row, column=1)
             self.widgets.append(string_entry)
             self.answers_dictionary[question.prompt] = string_entry
 
         elif question.type == "yn":
+            yn_frame = tk.Frame(self)
             var = tk.IntVar()
             self.answers_dictionary[question.prompt] = var
 
-            radio_entry_yes = tk.Radiobutton(self.answer_frame, text="Yes", variable=var, value=2)
+            radio_entry_yes = tk.Radiobutton(yn_frame, text="Yes", variable=var, value=2)
             if question.ans == "Yes":
                 radio_entry_yes.select()
-            radio_entry_yes.pack(padx=ANSWER_PAD_X, pady=ANSWER_PAD_Y)#side = "right")
+            radio_entry_yes.grid(row=0, column=0)
             self.widgets.append(radio_entry_yes)
 
-            radio_entry_no = tk.Radiobutton(self.answer_frame, text="No", variable=var, value=1)
+            radio_entry_no = tk.Radiobutton(yn_frame, text="No", variable=var, value=1)
             if question.ans == "No":
                 radio_entry_no.select()
-            radio_entry_no.pack(padx=ANSWER_PAD_X, pady=ANSWER_PAD_Y)#side = "right")
+            radio_entry_no.grid(row=0, column=1)
             self.widgets.append(radio_entry_no)
+            
+            yn_frame.grid(row=grid_row, column=1)
 
         elif question.type == "check":
             var = tk.IntVar()
             self.answers_dictionary[question.prompt] = var
 
-            check_button = tk.Checkbutton(self.answer_frame, variable = var, onvalue = 2, offvalue = 1)
+            check_button = tk.Checkbutton(self, variable = var, onvalue = 2, offvalue = 1)
             if question.ans == "Yes":
                 check_button.select()
             elif question.ans == "No":
                 check_button.deselect()
-            check_button.pack(padx=ANSWER_PAD_X, pady=ANSWER_PAD_Y)
+            check_button.grid(row=grid_row, column=1)
             self.widgets.append(check_button)
             
 
