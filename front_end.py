@@ -16,27 +16,9 @@ class PatientPrognosisBot(tk.Tk):
 
         self.geometry("1280x720")
 
-        #container.pack(side="top", fill="both", expand = True)
         container.pack()
 
-        #container.grid_rowconfigure(0, weight=1)
-        #container.grid_columnconfigure(0, weight=1)
-
-        # self.frames = {}
-        # for F in (StartPage, PageOne):
-        #     frame = F(container, self)
-        #     self.frames[F] = frame
-        #     frame.grid(row=0, column=0, sticky="nsew")
-
         StartPage(container, self)
-        # self.show_frame(frame)
-
-    # def show_frame(self, cont):
-        # frame = self.frames[cont]
-        # frame.tkraise()
-
-def qf(stringtoprint):
-    print(stringtoprint)
 
 class StartPage(tk.Frame):
 
@@ -57,16 +39,6 @@ class StartPage(tk.Frame):
 
         #Dictionary that holds all of the answer widgets
         self.answers_dictionary={}
-
-        #Question tkinter Frame
-        #self.question_frame = tk.Frame(self)
-        #self.question_frame.geometry("640x720")
-        #self.question_frame.pack(side="left")
-
-        #Answer tkinter Frame
-        #self.answer_frame = tk.Frame(self)
-        #self.answer_frame.pack(side="right")
-
 
     #builds initial screen
     #is only called at the beginning
@@ -103,13 +75,13 @@ class StartPage(tk.Frame):
         #next button calls for the next screen
         button_next = tk.Button(title_frame, text="Next", 
                                 command=lambda: self.nextPage(current_screen, 1))
-        button_next.grid(row=0, column=1, sticky="E")
+        button_next.grid(row=0, column=2, sticky="E")
         #adds next button to array widgets
         self.widgets.append(button_next)
         #prev button calls for the prev screen
         button_prev = tk.Button(title_frame, text="Back", 
                                 command=lambda: self.nextPage(current_screen, 0))
-        button_prev.grid(row=0, column=2, sticky="E")
+        button_prev.grid(row=0, column=1, sticky="E")
         #adds prev button to array widgets
         self.widgets.append(button_prev)
 
@@ -189,29 +161,9 @@ class StartPage(tk.Frame):
                 question.ans = self.answers_dictionary[question.prompt].get()       
             else:
                 if self.answers_dictionary[question.prompt].get() == 2:
-                    question.ans = "Yes"
+                    question.ans = "yes"
                 elif self.answers_dictionary[question.prompt].get() == 1:
-                    question.ans = "No"    
-
-
-    def printScreen(self, screen):
-        print(screen.title)
-        for question in screen.questions:
-            print("Question Prompt:", question.prompt)
-            print("Answer Type:", question.type)
-            print("Answer:", question.ans)
-            print("Display:", question.display)
-
-class PageOne(tk.Frame):
-
-     def __init__(self, parent, controller):
-         tk.Frame.__init__(self, parent)
-         label = tk.Label(self, text="Page One", font=TITLE_FONT)
-         label.pack(pady=10, padx=10)
-
-         button1 = tk.Button(self, text="back", 
-                            command=lambda: controller.show_frame(StartPage))
-         button1.pack()
+                    question.ans = "no"    
 
 app = PatientPrognosisBot()
 app.mainloop()
