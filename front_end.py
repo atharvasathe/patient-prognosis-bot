@@ -53,6 +53,7 @@ class StartPage(tk.Frame):
         if screen is None:
             evaluation = tk.Label(self, text=self.backend.evaluate().title, wraplength=1200, font=TITLE_FONT)
             evaluation.grid(row=1)
+            self.backend.print(False)
             return
 
         title_frame = tk.Frame(self)
