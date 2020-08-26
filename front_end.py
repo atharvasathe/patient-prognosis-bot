@@ -69,8 +69,9 @@ class StartPage(tk.Frame):
 
         #loops through all Questions in Screen and displays them 
         for question in screen.questions:
-            grid_row = grid_row + 1
-            self.displayQuestion(question, grid_row)
+            if question.display != False:
+                grid_row = grid_row + 1
+                self.displayQuestion(question, grid_row)
 
         grid_row = grid_row + 1
         #next button calls for the next screen
