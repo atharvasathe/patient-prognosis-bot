@@ -44,26 +44,6 @@ class Backend:
         self.index = 0
         self.screens = []
         self.process()
-    #Gets First Screen
-    def getInitialScreen(self):
-        self.index = 0
-        return self.screens[0]
-    #Gets Next Screen
-    def getNextScreen(self):
-        self.index+=1
-        self.checkConds(True)
-        if ( self.index < len(self.screens) ):
-            return self.screens[self.index]
-        else:
-            return None
-    #Gets Previous Screen
-    def getPrevScreen(self):
-        self.index-=1
-        self.checkConds(False)
-        if ( self.index >= 0 ):
-            return self.screens[self.index]
-        else:
-            return None
     #Initializes values and Parses JSON file
     def process(self):
         #Convert JSON into a python dictionary
@@ -86,6 +66,26 @@ class Backend:
             parsedScreens.append(s)
 
         self.screens = parsedScreens
+    #Gets First Screen
+    def getInitialScreen(self):
+        self.index = 0
+        return self.screens[0]
+    #Gets Next Screen
+    def getNextScreen(self):
+        self.index+=1
+        self.checkConds(True)
+        if ( self.index < len(self.screens) ):
+            return self.screens[self.index]
+        else:
+            return None
+    #Gets Previous Screen
+    def getPrevScreen(self):
+        self.index-=1
+        self.checkConds(False)
+        if ( self.index >= 0 ):
+            return self.screens[self.index]
+        else:
+            return None
     #Checks if conditions are met to display question(s)
     def checkConds(self, forward):
         #Check if index is in range
@@ -118,6 +118,7 @@ class Backend:
                             self.getPrevScreen()
                     if ( self.index < len(self.screens) ):
                         self.screens[self.index].questions = currQuestionList
+                    #self.print(True)
                 #Iterate to next screen (multiple conditions)
                 elif len(conditionList) == len(prevQuestionList):
                     skip = False
@@ -204,13 +205,3 @@ class Backend:
             scr.print(complex)
             print()
             i+=1
-
-#Dummy Front End
-be = Backend()
-
-#Evaluation and Output
-#example of what happens after the last screen in the frontend
-scr = be.evaluate()
-scr.print(False)
-print()
-be.print(False)
