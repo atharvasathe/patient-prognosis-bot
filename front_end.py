@@ -129,13 +129,13 @@ class StartPage(tk.Frame):
             self.answers_dictionary[question.prompt] = var
 
             radio_entry_yes = tk.Radiobutton(yn_frame, text="Yes", variable=var, value=2)
-            if question.ans == "Yes":
+            if question.ans == "yes":
                 radio_entry_yes.select()
             radio_entry_yes.grid(row=0, column=0)
             self.widgets.append(radio_entry_yes)
 
             radio_entry_no = tk.Radiobutton(yn_frame, text="No", variable=var, value=1)
-            if question.ans == "No":
+            if question.ans == "no":
                 radio_entry_no.select()
             radio_entry_no.grid(row=0, column=1)
             self.widgets.append(radio_entry_no)
@@ -147,9 +147,9 @@ class StartPage(tk.Frame):
             self.answers_dictionary[question.prompt] = var
 
             check_button = tk.Checkbutton(self, variable = var, onvalue = 2, offvalue = 1)
-            if question.ans == "Yes":
+            if question.ans == "yes":
                 check_button.select()
-            elif question.ans == "No":
+            elif question.ans == "no":
                 check_button.deselect()
             check_button.grid(row=grid_row, column=1)
             self.widgets.append(check_button)
